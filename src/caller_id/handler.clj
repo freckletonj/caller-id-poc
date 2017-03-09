@@ -1,12 +1,14 @@
 (ns caller-id.handler
-  (:require [compojure.core :refer :all]
-            [compojure.route :as route]
-            [ring.middleware.defaults :refer [wrap-defaults api-defaults]]
-            [ring.util.response :refer [response header]]
-            [clojure.data.csv :as csv]
+  (:gen-class)
+  (:require [clojure.data.csv :as csv]
             [clojure.java.io :as io]
             [clojure.set :refer [index]]
-            [ring.middleware.json :refer [wrap-json-response wrap-json-body]]))
+            [compojure.core :refer :all]
+            [compojure.route :as route]
+            [ring.adapter.jetty :as ring]
+            [ring.middleware.defaults :refer [wrap-defaults api-defaults]]
+            [ring.middleware.json :refer [wrap-json-response wrap-json-body]]
+            [ring.util.response :refer [response header]]))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -186,3 +188,8 @@
       (wrap-json-body {:keywords? true})
       (wrap-defaults api-defaults)
       (wrap-json-response)))
+
+(defn -main []
+  (let [port (Integer. (or (System/getenv "PORT") "3000"))]
+    (ring/run-jetty app {:port  port
+                         :join? false}  )))

@@ -23,6 +23,21 @@ or to set a port from the command line, simply set an environment variable
 
     PORT=3123 lein ring server
 
+## Deployment
+
+you can create a `.jar` file with:
+
+    lein ring uberjar
+    
+and run _that_ with:
+
+    java $JVM_OPTS -jar target/caller-id-standalone.jar
+    
+### On Heroku
+
+make a file named `Procfile` at the root containing
+web: java $JVM_OPTS -jar target/shouter-standalone.jar
+
 ## Testing it by hand
 
 Add Joe Shmoe:
