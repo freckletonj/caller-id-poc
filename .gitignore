@@ -1,0 +1,13 @@
+/target
+/lib
+/classes
+/checkouts
+pom.xml
+pom.xml.asc
+*.jar
+*.class
+/.lein-*
+/.nrepl-port
+
+# ignore this, it's pretty big
+resources/interview-callerid-data.csv

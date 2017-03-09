@@ -1,0 +1,60 @@
+# -*- restclient -*-
+
+##################################################
+#
+# For Testing in Emacs' RestClient
+#
+##################################################
+
+:base=http://localhost:3000
+#
+
+:head=<<
+Content-Type: application/json
+#
+
+##################################################
+# Endpoints
+
+# Add an Entry
+POST :base/number/123-456-7890
+:head
+{
+    "name"    : "Joe Shmoe",
+    "phone"   : "123-456-7890",
+    "context" : "yoyo competition"
+}
+
+# Get an Entry
+GET :base/query?number=%2B11234567890
+:head
+
+
+##################################################
+# These should fail gracefully
+
+# Non existing, returns 404
+GET :base/query?number=%2B19999999999
+:head
+
+
+# Failing POST, returns 400
+POST :base/number/123-456-78
+:head
+{
+    "name"    : "Joe Shmoe",
+    "phone"   : "123-456-78",
+    "context" : "yoyo competition"
+}
+
+# Failing POST, returns 400
+POST :base/number/123-456-7890
+:head
+{
+    "name"    : "Joe Shmoe"
+}
+
+# Failing GET, returns 400
+GET :base/query?number=%2B112345678
+:head
+
